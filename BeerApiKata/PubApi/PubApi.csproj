@@ -10,4 +10,11 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BeerApiKata.Infrastructure.Repository.InMemRepository\BeerApiKata.Infrastructure.Repository.InMemRepository.csproj" />
+    <ProjectReference Include="..\BeerApiKata.Infrastructure.Repository.Interfaces\BeerApiKata.Infrastructure.Repository.Interfaces.csproj" />
+    <ProjectReference Include="..\PubApi.Beer.Interfaces\PubApi.Beer.Interfaces.csproj" />
+    <ProjectReference Include="..\PubApi.Beer.Services\PubApi.Beer.Services.csproj" />
+  </ItemGroup>
+
 </Project>
