@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PubApi.Beer.Interfaces;
-using PubApi.Domain.Beer.Models;
+using PubApi.Beer.Models;
 using System.Net;
 
 namespace PubApi.Controllers;
@@ -17,41 +17,21 @@ public class BeerController : ControllerBase
     }
 
     [HttpPost(Name = "beer")]
-    public async Task<IActionResult> Post(BeerModel beer)
-    {
-        try
+    public async Task<IActionResult> Post(AddABeerRequest beer)
+    {        
+        return new ObjectResult(await _beerService.AddABeer(beer))
         {
-            await _beerService.AddABeer(beer);
-            return new OkResult();
-        }
-        catch (Exception ex)
-        {
-            //obvioulsy we may want to not return the message for security reasons, rather we could return a strucutred response
-            return new ObjectResult(ex.Message)
-            {
-                StatusCode = (int)HttpStatusCode.InternalServerError
-            };
-        }
+            StatusCode = (int)HttpStatusCode.OK
+        };
     }
 
 
     [HttpGet(Name = "beer")]
     public async Task<IActionResult> Get()
     {
-        try
+        return new ObjectResult(await _beerService.GetAllBeers())
         {
-            return new ObjectResult(await _beerService.GetAllBeers())
-            {
-                StatusCode = (int)HttpStatusCode.OK
-            };
-        }
-        catch (Exception ex)
-        {
-            //obvioulsy we may want to not return the message for security reasons, rather we could return a strucutred response
-            return new ObjectResult(ex.Message)
-            {
-                StatusCode = (int)HttpStatusCode.InternalServerError
-            };
-        }
+            StatusCode = (int)HttpStatusCode.OK
+        };
     }
 }

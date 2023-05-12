@@ -1,0 +1,8 @@
+﻿namespace PubApi.Beer.Interfaces
+{
+
+
+ 
+
+  
+}

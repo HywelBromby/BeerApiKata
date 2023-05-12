@@ -7,9 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BeerApiKata.Infrastructure.Repository.Interfaces\BeerApiKata.Infrastructure.Repository.Interfaces.csproj" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BeerApiKata.Infrastructure.Validation.Interfaces\BeerApiKata.Infrastructure.Validation.Interfaces.csproj" />
-    <ProjectReference Include="..\PubApi.Beer.Interfaces\PubApi.Beer.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

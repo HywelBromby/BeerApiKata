@@ -1,9 +1,9 @@
-﻿using PubApi.Domain.Beer.Models;
+﻿using PubApi.Beer.Models;
 
 namespace PubApi.Beer.Interfaces;
 
 public interface IBeerService
 {
-    Task AddABeer(BeerModel request);   
+    Task<Guid> AddABeer(AddABeerRequest request);   
     Task<IEnumerable<BeerModel>> GetAllBeers();
 }
