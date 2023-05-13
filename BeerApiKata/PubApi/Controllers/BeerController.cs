@@ -34,7 +34,7 @@ public class BeerController : ControllerBase
     }
 
     [HttpPut(Name = "beer")]
-    public async Task<IActionResult> Put(AddABeerRequest beer)
+    public async Task<IActionResult> Put(UpdateABeerRequest beer)
     {
         throw new NotImplementedException();
     }
