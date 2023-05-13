@@ -21,7 +21,7 @@ public class GenericFluentValidator<T> : IGenericValidator<T>
         var response = new GenericValidationResult
         {
             IsValid = validatorResponse.IsValid,
-            ValidationErrorsAsJson = validatorResponse.IsValid ? JsonConvert.SerializeObject(validatorResponse.Errors) : null
+            ValidationErrorsAsJson = validatorResponse.IsValid ? null : JsonConvert.SerializeObject(validatorResponse.Errors.Select(i=>i.ErrorMessage).ToList())
         };
 
         return response;

@@ -1,7 +1,9 @@
 ﻿using BeerApiKata.Infrastructure.Repository.Interfaces;
 using BeerApiKata.Infrastructure.Validation.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using PubApi.Beer.Interfaces;
 using PubApi.Beer.Models;
+using System.Net;
 
 namespace PubApi.Beer.Services;
 
@@ -16,7 +18,7 @@ public class BeerService : IBeerService
         _addABeerValidator = addABeerValidator;
     }
 
-    public async Task<Guid> AddABeer(AddABeerRequest request)
+    public async Task<ObjectResult> AddABeer(AddABeerRequest request)
     {
         if(request == null)
         {
@@ -26,16 +28,13 @@ public class BeerService : IBeerService
         var validationResult = await _addABeerValidator.Validate(request);
         if (!validationResult.IsValid)
         {
-            //var result = new ObjectResult(validationResult.ValidationErrorsAsJson)
-            //{
-                
-            //}
+            return new ObjectResult(validationResult.ValidationErrorsAsJson)
+            {
+                StatusCode = (int)HttpStatusCode.BadRequest
+            };            
         }
 
-
-
-
-         var beermodel = new BeerModel
+        var beermodel = new BeerModel
         {
             Name = request.Name,
             Id = Guid.NewGuid(),
@@ -43,14 +42,18 @@ public class BeerService : IBeerService
         };             
                
         await _repository.Create(beermodel.Id, beermodel);
-        
-        return beermodel.Id;
+
+        return new ObjectResult(beermodel.Id)
+        {
+            StatusCode = (int)HttpStatusCode.OK
+        };        
     }
 
-    public async Task<IEnumerable<BeerModel>> GetAllBeers()
+    public async Task<ObjectResult> GetAllBeers()
     {
-        throw new NotImplementedException();
-
-        return await _repository.GetAll();
+        return new ObjectResult(await _repository.GetAll())
+        {
+            StatusCode = (int) HttpStatusCode.OK
+        };
     }
 }

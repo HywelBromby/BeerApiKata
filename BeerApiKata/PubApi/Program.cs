@@ -2,7 +2,9 @@ using BeerApiKata.Infrastructure.Repository.InMemRepository;
 using BeerApiKata.Infrastructure.Repository.Interfaces;
 using BeerApiKata.Infrastructure.Validation.GenericFluentValidator;
 using BeerApiKata.Infrastructure.Validation.Interfaces;
+using FluentValidation;
 using PubApi.Beer.Interfaces;
+using PubApi.Beer.Models;
 using PubApi.Beer.Services;
 using PubApi.Middleware;
 
@@ -38,8 +40,16 @@ static void WireUpDependancies(WebApplicationBuilder builder)
 {
     builder.Services.AddSingleton(typeof(IGenericRepository<,>), typeof(InMemAsyncRepository<,>));
     builder.Services.AddTransient<IBeerService, BeerService>();
-    builder.Services.AddSingleton(typeof(IGenericValidator<>), typeof(GenericFluentValidator<>));
     
+    
+    builder.Services.AddSingleton(typeof(IGenericValidator<>), typeof(GenericFluentValidator<>));
+    builder.Services.AddTransient<AbstractValidator<AddABeerRequest> ,AddBeerRequestValidator>();
+
+
+
+
+
+
 }
 
 static void WireUpMiddleware(WebApplication app)

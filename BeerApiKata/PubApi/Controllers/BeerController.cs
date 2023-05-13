@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PubApi.Beer.Interfaces;
 using PubApi.Beer.Models;
-using System.Net;
 
 namespace PubApi.Controllers;
 
@@ -18,20 +17,14 @@ public class BeerController : ControllerBase
 
     [HttpPost(Name = "beer")]
     public async Task<IActionResult> Post(AddABeerRequest beer)
-    {        
-        return new ObjectResult(await _beerService.AddABeer(beer))
-        {
-            StatusCode = (int)HttpStatusCode.OK
-        };
+    {
+        return await _beerService.AddABeer(beer);        
     }
 
 
     [HttpGet(Name = "beer")]
     public async Task<IActionResult> Get()
     {
-        return new ObjectResult(await _beerService.GetAllBeers())
-        {
-            StatusCode = (int)HttpStatusCode.OK
-        };
+        return await _beerService.GetAllBeers();
     }
 }
