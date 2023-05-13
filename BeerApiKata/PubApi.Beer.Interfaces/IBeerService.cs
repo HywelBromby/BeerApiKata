@@ -7,4 +7,6 @@ public interface IBeerService
 {
     Task<ObjectResult> AddABeer(AddABeerRequest request);   
     Task<ObjectResult> GetAllBeers();
+    Task<ObjectResult> UpdateABeer(UpdateABeerRequest request);
+    Task<ObjectResult> GetBeer(Guid id);
 }

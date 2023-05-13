@@ -55,11 +55,7 @@ public class BeerFunctionalTests
     [Test]
     public async Task Given_GetByIdIsCalled_AndNoMatchingBeerIsFound_Then_404ShouldBeReturned()
     {
-        var beerModel1 = new BeerModel { Name = "Test1", PercentageAlcoholByVolume = 0.1M, Id = Guid.NewGuid() };
-
-        ((InMemAsyncRepository<Guid, BeerModel>)_beerRepository)._theStore.Add(beerModel1.Id, beerModel1);
-
-        var result = await _sut.Get(beerModel1.Id) as ObjectResult;
+        var result = await _sut.Get(Guid.NewGuid()) as ObjectResult;
 
         Assert.AreEqual((int)HttpStatusCode.NotFound, result.StatusCode);
 

@@ -24,7 +24,7 @@ public class BeerController : ControllerBase
     [HttpGet(Name = "beer")]
     public async Task<IActionResult> Get(Guid id)
     {
-        throw new NotImplementedException();
+        return await _beerService.GetBeer(id);
     }
 
     [HttpPost(Name = "beer")]

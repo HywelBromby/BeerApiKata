@@ -56,4 +56,27 @@ public class BeerService : IBeerService
             StatusCode = (int) HttpStatusCode.OK
         };
     }
+
+    public async Task<ObjectResult> GetBeer(Guid id)
+    {
+        var result = await _repository.Get(id);
+
+        if (result == default(BeerModel))
+        {
+            return new ObjectResult(null)
+            {
+                StatusCode = (int)HttpStatusCode.NotFound
+            };
+        }
+
+        return new ObjectResult(result)
+        {
+            StatusCode = (int)HttpStatusCode.OK
+        };
+    }
+
+    public Task<ObjectResult> UpdateABeer(UpdateABeerRequest request)
+    {
+        throw new NotImplementedException();
+    }
 }
