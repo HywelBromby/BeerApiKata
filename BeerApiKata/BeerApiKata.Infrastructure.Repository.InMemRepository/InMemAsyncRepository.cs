@@ -4,7 +4,7 @@ namespace BeerApiKata.Infrastructure.Repository.InMemRepository;
 
 public class InMemAsyncRepository<TId, TEntity> : IGenericRepository<TId, TEntity>
 {
-    public static readonly Dictionary<TId, TEntity> _theStore = new Dictionary<TId, TEntity>();
+    public readonly Dictionary<TId, TEntity> _theStore = new Dictionary<TId, TEntity>();
 
     public async Task Create(TId id, TEntity entity)
     {

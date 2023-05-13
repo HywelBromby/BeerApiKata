@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerApiKata.Infrastructure.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerApiKata.Infrastructure.Validation.Models", "BeerApiKata.Infrastructure.Validation.Models\BeerApiKata.Infrastructure.Validation.Models.csproj", "{44E75AB7-5840-493E-A9C6-4BC2B3808053}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PubApi.FunctionalTests", "PubApi.FunctionalTests\PubApi.FunctionalTests.csproj", "{84BEEAEA-6A6A-41DE-9284-9C12FE2B8038}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{44E75AB7-5840-493E-A9C6-4BC2B3808053}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44E75AB7-5840-493E-A9C6-4BC2B3808053}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44E75AB7-5840-493E-A9C6-4BC2B3808053}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84BEEAEA-6A6A-41DE-9284-9C12FE2B8038}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84BEEAEA-6A6A-41DE-9284-9C12FE2B8038}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84BEEAEA-6A6A-41DE-9284-9C12FE2B8038}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84BEEAEA-6A6A-41DE-9284-9C12FE2B8038}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,6 +98,7 @@ Global
 		{77399F8D-F081-4E36-9B7B-30D054B04D8C} = {C1BA4163-134B-48AF-B442-EDFE2443F638}
 		{724693AE-EBAD-4CF0-B898-4FF0BD80B505} = {C1BA4163-134B-48AF-B442-EDFE2443F638}
 		{44E75AB7-5840-493E-A9C6-4BC2B3808053} = {C1BA4163-134B-48AF-B442-EDFE2443F638}
+		{84BEEAEA-6A6A-41DE-9284-9C12FE2B8038} = {B5A4AF2D-81BF-4813-AD64-659055A7D3DD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2D092D1D-DB11-420C-8E0D-41B72151105F}

@@ -15,16 +15,28 @@ public class BeerController : ControllerBase
         _beerService = beerService;
     }
 
+    [HttpGet(Name = "beer")]
+    public async Task<IActionResult> Get()
+    {
+        return await _beerService.GetAllBeers();
+    }
+
+    [HttpGet(Name = "beer")]
+    public async Task<IActionResult> Get(Guid id)
+    {
+        throw new NotImplementedException();
+    }
+
     [HttpPost(Name = "beer")]
     public async Task<IActionResult> Post(AddABeerRequest beer)
     {
         return await _beerService.AddABeer(beer);        
     }
 
-
-    [HttpGet(Name = "beer")]
-    public async Task<IActionResult> Get()
+    [HttpPut(Name = "beer")]
+    public async Task<IActionResult> Put(AddABeerRequest beer)
     {
-        return await _beerService.GetAllBeers();
+        throw new NotImplementedException();
     }
+
 }
