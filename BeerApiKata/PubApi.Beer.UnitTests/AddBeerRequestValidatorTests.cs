@@ -1,7 +1,6 @@
 using NUnit.Framework;
 using PubApi.Beer.Models;
 using PubApi.Beer.Services;
-using System;
 
 namespace PubApi.Beer.UnitTests
 {

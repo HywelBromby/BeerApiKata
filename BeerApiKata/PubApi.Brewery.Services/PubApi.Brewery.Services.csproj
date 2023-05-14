@@ -1,24 +1,22 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="FluentValidation" Version="11.5.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BeerApiKata.Infrastructure.Repository.InMemRepository\BeerApiKata.Infrastructure.Repository.InMemRepository.csproj" />
     <ProjectReference Include="..\BeerApiKata.Infrastructure.Repository.Interfaces\BeerApiKata.Infrastructure.Repository.Interfaces.csproj" />
-    <ProjectReference Include="..\BeerApiKata.Infrastructure.Validation.GenericFluentValidator\BeerApiKata.Infrastructure.Validation.GenericFluentValidator.csproj" />
     <ProjectReference Include="..\BeerApiKata.Infrastructure.Validation.Interfaces\BeerApiKata.Infrastructure.Validation.Interfaces.csproj" />
     <ProjectReference Include="..\PubApi.Beer.Interfaces\PubApi.Beer.Interfaces.csproj" />
-    <ProjectReference Include="..\PubApi.Beer.Services\PubApi.Beer.Services.csproj" />
     <ProjectReference Include="..\PubApi.Brewery.Interfaces\PubApi.Brewery.Interfaces.csproj" />
-    <ProjectReference Include="..\PubApi.Brewery.Services\PubApi.Brewery.Services.csproj" />
+    <ProjectReference Include="..\PubApi.Brewery.Models\PubApi.Brewery.Models.csproj" />
   </ItemGroup>
 
 </Project>

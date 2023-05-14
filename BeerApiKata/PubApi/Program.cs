@@ -6,6 +6,9 @@ using FluentValidation;
 using PubApi.Beer.Interfaces;
 using PubApi.Beer.Models;
 using PubApi.Beer.Services;
+using PubApi.Brewery.Interfaces;
+using PubApi.Brewery.Models;
+using PubApi.Brewery.Services;
 using PubApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,12 +42,15 @@ app.Run();
 static void WireUpDependancies(WebApplicationBuilder builder)
 {
     builder.Services.AddSingleton(typeof(IGenericRepository<,>), typeof(InMemAsyncRepository<,>));
-    builder.Services.AddTransient<IBeerService, BeerService>();
-   
-    
     builder.Services.AddSingleton(typeof(IGenericValidator<>), typeof(GenericFluentValidator<>));
+
+    builder.Services.AddTransient<IBeerService, BeerService>();
     builder.Services.AddTransient<AbstractValidator<AddABeerRequest> ,AddBeerRequestValidator>();
     builder.Services.AddTransient<AbstractValidator<UpdateABeerRequest>, UpdateBeerRequestValidator>();
+
+    builder.Services.AddTransient<IBreweryService, BreweryService>();
+    builder.Services.AddTransient<AbstractValidator<AddABreweryRequest>, AddBreweryRequestValidator>();
+    builder.Services.AddTransient<AbstractValidator<UpdateABreweryRequest>, UpdateBreweryRequestValidator>();
 }
 
 static void WireUpMiddleware(WebApplication app)

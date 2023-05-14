@@ -1,6 +1,7 @@
 using BeerApiKata.Infrastructure.Repository.InMemRepository;
 using BeerApiKata.Infrastructure.Repository.Interfaces;
 using BeerApiKata.Infrastructure.Validation.Interfaces;
+using BeerApiKata.Infrastructure.Validation.Models;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
@@ -30,10 +31,10 @@ public class BeerFunctionalTests
         _beerRepository = new InMemAsyncRepository<Guid, BeerModel>();
 
         _mockAddABeerValidator = new Mock<IGenericValidator<AddABeerRequest>>();
-        _mockAddABeerValidator.Setup(i => i.Validate(It.IsAny<AddABeerRequest>())).ReturnsAsync(new BeerApiKata.Infrastructure.Validation.Models.GenericValidationResult { IsValid = true });
+        _mockAddABeerValidator.Setup(i => i.Validate(It.IsAny<AddABeerRequest>())).ReturnsAsync(new GenericValidationResult { IsValid = true });
 
         _mockUpdateABeerValidator = new Mock<IGenericValidator<UpdateABeerRequest>>();
-        _mockUpdateABeerValidator.Setup(i => i.Validate(It.IsAny<UpdateABeerRequest>())).ReturnsAsync(new BeerApiKata.Infrastructure.Validation.Models.GenericValidationResult { IsValid = true });
+        _mockUpdateABeerValidator.Setup(i => i.Validate(It.IsAny<UpdateABeerRequest>())).ReturnsAsync(new GenericValidationResult { IsValid = true });
 
         _sut = new BeerController(new BeerService(_beerRepository, _mockAddABeerValidator.Object, _mockUpdateABeerValidator.Object));
     }
@@ -134,7 +135,7 @@ public class BeerFunctionalTests
     [Test]
     public async Task Given_AnInvalidItemIsAdded_Then_AValidationErrorShouldOccur()
     {
-        _mockAddABeerValidator.Setup(i => i.Validate(It.IsAny<AddABeerRequest>())).ReturnsAsync(new BeerApiKata.Infrastructure.Validation.Models.GenericValidationResult { IsValid = false });
+        _mockAddABeerValidator.Setup(i => i.Validate(It.IsAny<AddABeerRequest>())).ReturnsAsync(new GenericValidationResult { IsValid = false });
 
         var postResult = await _sut.Post(new AddABeerRequest()) as ObjectResult;
 
@@ -202,7 +203,7 @@ public class BeerFunctionalTests
     [Test]
     public async Task Given_AnInvalidItemIsUpdated_Then_AValidationErrorShouldOccur()
     {
-        _mockUpdateABeerValidator.Setup(i => i.Validate(It.IsAny<UpdateABeerRequest>())).ReturnsAsync(new BeerApiKata.Infrastructure.Validation.Models.GenericValidationResult { IsValid = false });
+        _mockUpdateABeerValidator.Setup(i => i.Validate(It.IsAny<UpdateABeerRequest>())).ReturnsAsync(new GenericValidationResult { IsValid = false });
         
         var postResult = await _sut.Put(new UpdateABeerRequest()) as ObjectResult;
 
