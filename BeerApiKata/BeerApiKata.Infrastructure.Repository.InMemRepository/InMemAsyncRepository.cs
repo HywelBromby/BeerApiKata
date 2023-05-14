@@ -2,6 +2,12 @@
 
 namespace BeerApiKata.Infrastructure.Repository.InMemRepository;
 
+/// <summary>
+/// Just went for a simple in memory store, this can easily be swapped out for a DB  of choice
+/// </summary>
+/// <typeparam name="TId"></typeparam>
+/// <typeparam name="TEntity"></typeparam>
+
 public class InMemAsyncRepository<TId, TEntity> : IGenericRepository<TId, TEntity>
 {
     public readonly Dictionary<TId, TEntity> _theStore = new Dictionary<TId, TEntity>();

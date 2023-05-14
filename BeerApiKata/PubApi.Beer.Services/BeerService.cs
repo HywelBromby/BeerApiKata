@@ -63,6 +63,7 @@ public class BeerService : IBeerService
 
         //not the most efficient, but assuming low over all numbers of Beers
         var allBeers = await _repository.GetAll();
+        //could do less than / more than or equal, but thats not what the spec says 
         var filteredBeers = allBeers.Where(i=>i.PercentageAlcoholByVolume > filter.gtAlcoholByVolume && i.PercentageAlcoholByVolume < filter.ltAlcoholByVolume).ToList();
 
         return new ObjectResult(filteredBeers)
