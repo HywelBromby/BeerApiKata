@@ -31,8 +31,13 @@ public class BreweryBeerController : ControllerBase
     [HttpPost("Brewery/Beer")]
     public async Task<IActionResult> Post(AddABreweryBeerRequest breweryBeer)
     {
-        //should probably check if it all ready exists to stop duplication duplication.
-        
+        var beer = await _BeerRepository.Get(breweryBeer.BeerId);
+        var brewery = await _BreweryRepository.Get(breweryBeer.BreweryId);
+        if (brewery == null || beer == null)
+        {
+            return BadRequest();
+        }
+
         await _BreweryBeerRepository.Create(Guid.NewGuid(), new BreweryBeerModel { BreweryId = breweryBeer.BreweryId, BeerId = breweryBeer.BeerId });
         return new OkResult();
     }

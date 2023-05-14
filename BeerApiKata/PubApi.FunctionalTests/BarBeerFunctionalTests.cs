@@ -2,35 +2,35 @@ using BeerApiKata.Infrastructure.Repository.InMemRepository;
 using BeerApiKata.Infrastructure.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
+using PubApi.Bar.Models;
 using PubApi.Beer.Models;
-using PubApi.Brewery.Models;
 using PubApi.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using static PubApi.Controllers.BreweryBeerController;
+using static PubApi.Controllers.BarBeerController;
 
 namespace PubApi.FunctionalTests;
 
-public class BreweryBeerFunctionalTests
+public class BarBeerFunctionalTests
 {
     #region Setup
     
-    BreweryBeerController _sut;
-    private IGenericRepository<Guid, BreweryBeerModel> _BreweryBeerRepository;
+    BarBeerController _sut;
+    private IGenericRepository<Guid, BarBeerModel> _BarBeerRepository;
     private IGenericRepository<Guid, BeerModel> _BeerRepository;
-    private IGenericRepository<Guid, BreweryModel> _BreweryRepository;
+    private IGenericRepository<Guid, BarModel> _BarRepository;
 
 
     [SetUp]
     public void Setup()
     {
-        _BreweryBeerRepository = new InMemAsyncRepository<Guid, BreweryBeerModel>();
+        _BarBeerRepository = new InMemAsyncRepository<Guid, BarBeerModel>();
         _BeerRepository = new InMemAsyncRepository<Guid, BeerModel>();
-        _BreweryRepository = new InMemAsyncRepository<Guid, BreweryModel>();
-        _sut = new BreweryBeerController(_BreweryBeerRepository, _BeerRepository, _BreweryRepository);
+        _BarRepository = new InMemAsyncRepository<Guid, BarModel>();
+        _sut = new BarBeerController(_BarBeerRepository, _BeerRepository, _BarRepository);
     }
 
     #endregion Setup
@@ -40,12 +40,13 @@ public class BreweryBeerFunctionalTests
     [Test]
     public async Task Given_TheRepositoryIsEmpty_When_AValidItemIsAdded_Then_TheRepository_ShouldHaveAnItemInIt()
     {
-        var breweryModel = new BreweryModel
+        var barModel = new BarModel
         {
             Id = Guid.NewGuid(),
-            Name = "test",           
+            Name = "test",
+            Address = "test"
         };
-        await _BreweryRepository.Create(breweryModel.Id, breweryModel);
+        await _BarRepository.Create(barModel.Id, barModel);
 
         var beerModel = new BeerModel
         {
@@ -54,33 +55,35 @@ public class BreweryBeerFunctionalTests
             PercentageAlcoholByVolume = 0.5M
         };
         await _BeerRepository.Create(beerModel.Id, beerModel);
-        
-        var itemToAdd = new AddABreweryBeerRequest()
+
+
+        var itemToAdd = new AddABarBeerRequest()
         {
             BeerId = beerModel.Id,
-            BreweryId = breweryModel.Id
+            BarId = barModel.Id,
         };
 
-        var result = await _BreweryBeerRepository.GetAll();                
+        var result = await _BarBeerRepository.GetAll();                
         Assert.AreEqual(0, result.Count());
 
         var postResult = await _sut.Post(itemToAdd) as OkResult;
 
         Assert.AreEqual((int)HttpStatusCode.OK, postResult.StatusCode);
 
-        result = await _BreweryBeerRepository.GetAll();
+        result = await _BarBeerRepository.GetAll();
         Assert.AreEqual(1, result.Count());
     }
 
     [Test]
     public async Task Given_TheRepositoryIsEmpty_When_AValidItemIsAdded_Then_TheRepository_ShouldHaveAnItemWiththeCorrectValuesInIt()
     {
-        var breweryModel = new BreweryModel
+        var barModel = new BarModel
         {
             Id = Guid.NewGuid(),
             Name = "test",
+            Address = "test"
         };
-        await _BreweryRepository.Create(breweryModel.Id, breweryModel);
+        await _BarRepository.Create(barModel.Id, barModel);
 
         var beerModel = new BeerModel
         {
@@ -90,35 +93,35 @@ public class BreweryBeerFunctionalTests
         };
         await _BeerRepository.Create(beerModel.Id, beerModel);
 
-        var itemToAdd = new AddABreweryBeerRequest()
+
+        var itemToAdd = new AddABarBeerRequest()
         {
             BeerId = beerModel.Id,
-            BreweryId = breweryModel.Id
+            BarId = barModel.Id,
         };
 
-        var result = await _BreweryBeerRepository.GetAll();
+        var result = await _BarBeerRepository.GetAll();
         Assert.AreEqual(0, result.Count());
 
         var postResult = await _sut.Post(itemToAdd) as OkResult;
 
         Assert.AreEqual((int)HttpStatusCode.OK, postResult.StatusCode);
 
-        result = await _BreweryBeerRepository.GetAll();
+        result = await _BarBeerRepository.GetAll();
         Assert.AreEqual(itemToAdd.BeerId, result.First().BeerId);
-        Assert.AreEqual(itemToAdd.BreweryId, result.First().BreweryId);
+        Assert.AreEqual(itemToAdd.BarId, result.First().BarId);
     }
 
 
     [Test]
     public async Task Given_AnInvalidIDIsEntered_ThenABadRequestShuoldBeReturend()
     {
-        var result = await _sut.Post(new AddABreweryBeerRequest { BeerId = Guid.NewGuid(),BreweryId = Guid.NewGuid()}) as BadRequestResult;
-        Assert.AreEqual((int)HttpStatusCode.BadRequest, result.StatusCode);      
+        var result = await _sut.Post(new AddABarBeerRequest  { BeerId = Guid.NewGuid(), BarId = Guid.NewGuid() }) as BadRequestResult;
+        Assert.AreEqual((int)HttpStatusCode.BadRequest, result.StatusCode);
 
     }
 
     #endregion Post Tests 
-
 
     #region GetById Tests
 
@@ -140,41 +143,41 @@ public class BreweryBeerFunctionalTests
         await _BeerRepository.Create(beerModel1.Id, beerModel1);     
         await _BeerRepository.Create(beerModel2.Id, beerModel2);
 
-        var breweryModel1 = new BreweryModel
+        var barModel1 = new BarModel
         {
             Id = Guid.NewGuid(),
             Name = "Brains"
         };
 
-        var breweryModel2 = new BreweryModel
+        var barModel2 = new BarModel
         {
             Id = Guid.NewGuid(),
             Name = "Brains"
         };
 
-        await _BreweryRepository.Create(breweryModel1.Id, breweryModel1);
-        await _BreweryRepository.Create(breweryModel2.Id, breweryModel2);
+        await _BarRepository.Create(barModel1.Id, barModel1);
+        await _BarRepository.Create(barModel2.Id, barModel2);
 
 
-        await _BreweryBeerRepository.Create(Guid.NewGuid(), new BreweryBeerModel { BreweryId = breweryModel1.Id, BeerId = beerModel1.Id });
-        await _BreweryBeerRepository.Create(Guid.NewGuid(), new BreweryBeerModel { BreweryId = breweryModel1.Id, BeerId = beerModel2.Id, });
-        await _BreweryBeerRepository.Create(Guid.NewGuid(), new BreweryBeerModel { BreweryId = breweryModel2.Id, BeerId = beerModel1.Id });
+        await _BarBeerRepository.Create(Guid.NewGuid(), new BarBeerModel { BarId = barModel1.Id, BeerId = beerModel1.Id });
+        await _BarBeerRepository.Create(Guid.NewGuid(), new BarBeerModel { BarId = barModel1.Id, BeerId = beerModel2.Id, });
+        await _BarBeerRepository.Create(Guid.NewGuid(), new BarBeerModel { BarId = barModel2.Id, BeerId = beerModel1.Id });
         
         
-        var result = await _sut.Get(breweryModel1.Id) as ObjectResult;
-        var breweryBeerResult = (GetBreweryBeerResponse)result.Value;
+        var result = await _sut.Get(barModel1.Id) as ObjectResult;
+        var BarBeerResult = (GetBarBeerResponse)result.Value;
 
         Assert.AreEqual((int)HttpStatusCode.OK, result.StatusCode);
-        Assert.AreEqual(breweryModel1, breweryBeerResult.Brewery);
-        Assert.AreEqual(2, breweryBeerResult.Beers.Count());
-        Assert.AreEqual(beerModel1, breweryBeerResult.Beers.First(i=>i.Id == beerModel1.Id));
-        Assert.AreEqual(beerModel2, breweryBeerResult.Beers.First(i => i.Id == beerModel2.Id));      
+        Assert.AreEqual(barModel1, BarBeerResult.Bar);
+        Assert.AreEqual(2, BarBeerResult.Beers.Count());
+        Assert.AreEqual(beerModel1, BarBeerResult.Beers.First(i=>i.Id == beerModel1.Id));
+        Assert.AreEqual(beerModel2, BarBeerResult.Beers.First(i => i.Id == beerModel2.Id));      
 
 
     }
        
     [Test]
-    public async Task Given_GetByIdIsCalled_AndNoMatchingBreweryBeerIsFound_Then_404ShouldBeReturned()
+    public async Task Given_GetByIdIsCalled_AndNoMatchingBarBeerIsFound_Then_404ShouldBeReturned()
     {
         var result = await _sut.Get(Guid.NewGuid()) as NotFoundResult;
 
@@ -203,35 +206,34 @@ public class BreweryBeerFunctionalTests
         await _BeerRepository.Create(beerModel1.Id, beerModel1);
         await _BeerRepository.Create(beerModel2.Id, beerModel2);
 
-        var breweryModel1 = new BreweryModel
+        var barModel1 = new BarModel
         {
             Id = Guid.NewGuid(),
             Name = "Brains"
         };
 
-        var breweryModel2 = new BreweryModel
+        var barModel2 = new BarModel
         {
             Id = Guid.NewGuid(),
             Name = "Brains"
         };
 
-        await _BreweryRepository.Create(breweryModel1.Id, breweryModel1);
-        await _BreweryRepository.Create(breweryModel2.Id, breweryModel2);
+        await _BarRepository.Create(barModel1.Id, barModel1);
+        await _BarRepository.Create(barModel2.Id, barModel2);
 
 
-        await _BreweryBeerRepository.Create(Guid.NewGuid(), new BreweryBeerModel { BreweryId = breweryModel1.Id, BeerId = beerModel1.Id });
-        await _BreweryBeerRepository.Create(Guid.NewGuid(), new BreweryBeerModel { BreweryId = breweryModel1.Id, BeerId = beerModel2.Id, });
-        await _BreweryBeerRepository.Create(Guid.NewGuid(), new BreweryBeerModel { BreweryId = breweryModel2.Id, BeerId = beerModel1.Id });
+        await _BarBeerRepository.Create(Guid.NewGuid(), new BarBeerModel { BarId = barModel1.Id, BeerId = beerModel1.Id });
+        await _BarBeerRepository.Create(Guid.NewGuid(), new BarBeerModel { BarId = barModel1.Id, BeerId = beerModel2.Id, });
+        await _BarBeerRepository.Create(Guid.NewGuid(), new BarBeerModel { BarId = barModel2.Id, BeerId = beerModel1.Id });
 
 
         var result = await _sut.Get() as ObjectResult;
-        var breweryBeerResult = (IEnumerable<GetBreweryBeerResponse>)result.Value;
+        var BarBeerResult = (IEnumerable<GetBarBeerResponse>)result.Value;
 
         Assert.AreEqual((int)HttpStatusCode.OK, result.StatusCode);
-        Assert.AreEqual(2, breweryBeerResult.Count());
+        Assert.AreEqual(2, BarBeerResult.Count());
     }
     
     #endregion Get Test
-
 
 }
