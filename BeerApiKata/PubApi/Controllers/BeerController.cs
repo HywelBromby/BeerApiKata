@@ -22,7 +22,7 @@ public class BeerController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetById(Guid id)
+    public async Task<IActionResult> Get(Guid id)
     {
         return await _beerService.GetBeer(id);
     }

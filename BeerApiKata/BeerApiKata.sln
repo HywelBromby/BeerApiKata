@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PubApi", "PubApi\PubApi.csproj", "{F4F195DE-8313-4B3D-AD6D-F274D4F7D260}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PubApi", "PubApi\PubApi.csproj", "{F4F195DE-8313-4B3D-AD6D-F274D4F7D260}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{B5A4AF2D-81BF-4813-AD64-659055A7D3DD}"
 EndProject
@@ -15,25 +15,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Beer", "Beer", "{57946597-1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PubApi.Beer.Models", "PubApi.Beer.Models\PubApi.Beer.Models.csproj", "{323B137B-ADCA-4B97-B37A-09389F1529A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PubApi.Beer.Interfaces", "PubApi.Beer.Interfaces\PubApi.Beer.Interfaces.csproj", "{990D2236-87BF-4962-9B5F-5074BA789B12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PubApi.Beer.Interfaces", "PubApi.Beer.Interfaces\PubApi.Beer.Interfaces.csproj", "{990D2236-87BF-4962-9B5F-5074BA789B12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PubApi.Beer.Services", "PubApi.Beer.Services\PubApi.Beer.Services.csproj", "{67622952-31DE-4CD1-AEDB-7FB56E0D1DEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PubApi.Beer.Services", "PubApi.Beer.Services\PubApi.Beer.Services.csproj", "{67622952-31DE-4CD1-AEDB-7FB56E0D1DEC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", "{C6440F84-4BA3-41C6-9E31-A6EDF27F2D13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerApiKata.Infrastructure.Repository.Interfaces", "BeerApiKata.Infrastructure.Repository.Interfaces\BeerApiKata.Infrastructure.Repository.Interfaces.csproj", "{95C52408-745C-4581-97CB-2DEE93E2CB73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeerApiKata.Infrastructure.Repository.Interfaces", "BeerApiKata.Infrastructure.Repository.Interfaces\BeerApiKata.Infrastructure.Repository.Interfaces.csproj", "{95C52408-745C-4581-97CB-2DEE93E2CB73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerApiKata.Infrastructure.Repository.InMemRepository", "BeerApiKata.Infrastructure.Repository.InMemRepository\BeerApiKata.Infrastructure.Repository.InMemRepository.csproj", "{7D780EB0-AF7D-4419-82DB-A9ECF70B9D51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeerApiKata.Infrastructure.Repository.InMemRepository", "BeerApiKata.Infrastructure.Repository.InMemRepository\BeerApiKata.Infrastructure.Repository.InMemRepository.csproj", "{7D780EB0-AF7D-4419-82DB-A9ECF70B9D51}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Validation", "Validation", "{C1BA4163-134B-48AF-B442-EDFE2443F638}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerApiKata.Infrastructure.Validation.Interfaces", "BeerApiKata.Infrastructure.Validation.Interfaces\BeerApiKata.Infrastructure.Validation.Interfaces.csproj", "{77399F8D-F081-4E36-9B7B-30D054B04D8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeerApiKata.Infrastructure.Validation.Interfaces", "BeerApiKata.Infrastructure.Validation.Interfaces\BeerApiKata.Infrastructure.Validation.Interfaces.csproj", "{77399F8D-F081-4E36-9B7B-30D054B04D8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerApiKata.Infrastructure.Validation.GenericFluentValidator", "BeerApiKata.Infrastructure.Validation.GenericFluentValidator\BeerApiKata.Infrastructure.Validation.GenericFluentValidator.csproj", "{724693AE-EBAD-4CF0-B898-4FF0BD80B505}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeerApiKata.Infrastructure.Validation.GenericFluentValidator", "BeerApiKata.Infrastructure.Validation.GenericFluentValidator\BeerApiKata.Infrastructure.Validation.GenericFluentValidator.csproj", "{724693AE-EBAD-4CF0-B898-4FF0BD80B505}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerApiKata.Infrastructure.Validation.Models", "BeerApiKata.Infrastructure.Validation.Models\BeerApiKata.Infrastructure.Validation.Models.csproj", "{44E75AB7-5840-493E-A9C6-4BC2B3808053}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeerApiKata.Infrastructure.Validation.Models", "BeerApiKata.Infrastructure.Validation.Models\BeerApiKata.Infrastructure.Validation.Models.csproj", "{44E75AB7-5840-493E-A9C6-4BC2B3808053}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PubApi.FunctionalTests", "PubApi.FunctionalTests\PubApi.FunctionalTests.csproj", "{84BEEAEA-6A6A-41DE-9284-9C12FE2B8038}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PubApi.FunctionalTests", "PubApi.FunctionalTests\PubApi.FunctionalTests.csproj", "{84BEEAEA-6A6A-41DE-9284-9C12FE2B8038}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PubApi.Beer.UnitTests", "PubApi.Beer.UnitTests\PubApi.Beer.UnitTests.csproj", "{C2420BC8-6C15-4CDC-A6D5-049CCB87D043}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{84BEEAEA-6A6A-41DE-9284-9C12FE2B8038}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84BEEAEA-6A6A-41DE-9284-9C12FE2B8038}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84BEEAEA-6A6A-41DE-9284-9C12FE2B8038}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2420BC8-6C15-4CDC-A6D5-049CCB87D043}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2420BC8-6C15-4CDC-A6D5-049CCB87D043}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2420BC8-6C15-4CDC-A6D5-049CCB87D043}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2420BC8-6C15-4CDC-A6D5-049CCB87D043}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,6 +105,7 @@ Global
 		{724693AE-EBAD-4CF0-B898-4FF0BD80B505} = {C1BA4163-134B-48AF-B442-EDFE2443F638}
 		{44E75AB7-5840-493E-A9C6-4BC2B3808053} = {C1BA4163-134B-48AF-B442-EDFE2443F638}
 		{84BEEAEA-6A6A-41DE-9284-9C12FE2B8038} = {B5A4AF2D-81BF-4813-AD64-659055A7D3DD}
+		{C2420BC8-6C15-4CDC-A6D5-049CCB87D043} = {57946597-1316-433A-8656-0C2028F07680}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2D092D1D-DB11-420C-8E0D-41B72151105F}
