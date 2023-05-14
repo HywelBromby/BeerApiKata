@@ -46,7 +46,7 @@ public class BarFunctionalTests
     [Test]
     public async Task Given_GetByIdIsCalled_AndAMatchingItemIsFound_Then_ItShouldBeReturned()
     {
-        var BarModel1 = new BarModel { Name = "Test1", PercentageAlcoholByVolume = 0.1M, Id = Guid.NewGuid() };
+        var BarModel1 = new BarModel { Name = "Test1", Address = "Hogwarts", Id = Guid.NewGuid() };
        
         ((InMemAsyncRepository<Guid, BarModel>)_BarRepository)._theStore.Add(BarModel1.Id, BarModel1);       
 
@@ -73,8 +73,8 @@ public class BarFunctionalTests
     [Test]
     public async Task Given_GetAllIsCalled_Then_All_BarsInTheRepositoryShouldBeReturend()
     {
-        var BarModel1 = new BarModel { Name = "Test1", PercentageAlcoholByVolume = 0.1M, Id = Guid.NewGuid() };
-        var BarModel2 = new BarModel { Name = "Test2", PercentageAlcoholByVolume = 0.2M, Id = Guid.NewGuid() };
+        var BarModel1 = new BarModel { Name = "Test1", Address = "Hogwarts", Id = Guid.NewGuid() };
+        var BarModel2 = new BarModel { Name = "Test2", Address = "TestAddress", Id = Guid.NewGuid() };
 
 
         ((InMemAsyncRepository<Guid, BarModel>)_BarRepository)._theStore.Add(BarModel1.Id, BarModel1);
@@ -97,7 +97,7 @@ public class BarFunctionalTests
         var itemToAdd = new AddABarRequest()
         {
             Name = "Test",
-            PercentageAlcoholByVolume = 0.5M
+            Address = "Hogwarts"
         };
 
         var result = await _sut.Get() as ObjectResult;
@@ -117,7 +117,7 @@ public class BarFunctionalTests
         var itemToAdd = new AddABarRequest()
         {
             Name = "Test",
-            PercentageAlcoholByVolume = 0.5M
+            Address = "Hogwarts"
         };
 
         var result = await _sut.Get() as ObjectResult;
@@ -129,7 +129,7 @@ public class BarFunctionalTests
 
         result = await _sut.Get() as ObjectResult;
         Assert.AreEqual(itemToAdd.Name, ((List<BarModel>)result.Value)[0].Name);
-        Assert.AreEqual(itemToAdd.PercentageAlcoholByVolume, ((List<BarModel>)result.Value)[0].PercentageAlcoholByVolume);
+        Assert.AreEqual(itemToAdd.Address, ((List<BarModel>)result.Value)[0].Address);
     }
 
     [Test]
@@ -152,7 +152,7 @@ public class BarFunctionalTests
         var itemToAdd = new AddABarRequest()
         {
             Name = "Test",
-            PercentageAlcoholByVolume = 0.5M
+            Address = "Hogwarts"
         };
         
         var postResult = await _sut.Post(itemToAdd)as ObjectResult;
@@ -164,7 +164,7 @@ public class BarFunctionalTests
         {
             Id = (Guid)postResult.Value,
             Name = "Test2",
-            PercentageAlcoholByVolume = 0.75M
+            Address = "Home"
         };
 
         var updateResult = await _sut.Put(itemToUpdate) as ObjectResult;
@@ -174,7 +174,7 @@ public class BarFunctionalTests
         result = await _sut.Get(itemToUpdate.Id) as ObjectResult;
 
         Assert.AreEqual(itemToUpdate.Name, ((BarModel)result.Value).Name);
-        Assert.AreEqual(itemToUpdate.PercentageAlcoholByVolume, ((BarModel)result.Value).PercentageAlcoholByVolume);
+        Assert.AreEqual(itemToUpdate.Address, ((BarModel)result.Value).Address);
 
 
     }
@@ -191,7 +191,7 @@ public class BarFunctionalTests
         {
             Id = Guid.NewGuid(),
             Name = "Test2",
-            PercentageAlcoholByVolume = 0.75M
+            Address = "Hogwarts"
         };
 
         var updateResult = await _sut.Put(itemToUpdate) as ObjectResult;

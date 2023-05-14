@@ -9,19 +9,20 @@ namespace PubApi.Bar.UnitTests
         AddBarRequestValidator _sut = new AddBarRequestValidator();
             
         private const string validName = "test";
-        private const string validPercentageAlcoholByVolume = "0.5";
+        private const string validAddress = "Hogwarts";
 
-        [TestCase(validName, validPercentageAlcoholByVolume, true)]
-        [TestCase(null, validPercentageAlcoholByVolume, false)]
-        [TestCase("", validPercentageAlcoholByVolume, false)]
-        [TestCase(validName, "-1", false)]
-        public void Given_ValidationIsCalled_Then_ItShouldPassOrFailBasedOnValues(string name, decimal percentageAlcoholByVolume, bool PassesValidation)        
+        [TestCase(validName, validAddress, true)]
+        [TestCase(null, validAddress, false)]
+        [TestCase("", validAddress, false)]
+        [TestCase(validName, null, false)]
+        [TestCase(validName, "", false)]
+        public void Given_ValidationIsCalled_Then_ItShouldPassOrFailBasedOnValues(string name, string address, bool PassesValidation)        
         {
 
             var request = new AddABarRequest()
             {
                 Name = name,
-                PercentageAlcoholByVolume =percentageAlcoholByVolume
+                Address = address
             };
 
             var validationResponse = _sut.Validate(request);

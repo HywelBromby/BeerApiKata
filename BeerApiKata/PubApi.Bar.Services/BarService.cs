@@ -43,7 +43,7 @@ public class BarService : IBarService
         {
             Name = request.Name,
             Id = Guid.NewGuid(),
-            PercentageAlcoholByVolume = request.PercentageAlcoholByVolume
+            Address = request.Address
         };             
                
         await _repository.Create(Barmodel.Id, Barmodel);
@@ -110,7 +110,7 @@ public class BarService : IBarService
         {
             Name = request.Name,
             Id = request.Id,
-            PercentageAlcoholByVolume = request.PercentageAlcoholByVolume
+            Address = request.Address
         };
 
         await _repository.Update(request.Id, Barmodel);
