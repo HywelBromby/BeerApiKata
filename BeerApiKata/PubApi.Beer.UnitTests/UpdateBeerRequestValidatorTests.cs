@@ -17,6 +17,7 @@ namespace PubApi.Beer.UnitTests
         [TestCase(validId, null, validPercentageAlcoholByVolume, false)]
         [TestCase(validId, "", validPercentageAlcoholByVolume, false)]
         [TestCase(validId, validName, -1,false)]
+        [TestCase(validId, validName, 101, false)]
         public void Given_ValidationIsCalled_Then_ItShouldPassOrFailBasedOnValues(Guid id,string name,decimal percentageAlcoholByVolume,bool PassesValidation)        {
 
             var request = new UpdateABeerRequest()

@@ -15,6 +15,7 @@ namespace PubApi.Beer.UnitTests
         [TestCase(null, validPercentageAlcoholByVolume, false)]
         [TestCase("", validPercentageAlcoholByVolume, false)]
         [TestCase(validName, "-1", false)]
+        [TestCase(validName, "101", false)]
         public void Given_ValidationIsCalled_Then_ItShouldPassOrFailBasedOnValues(string name, decimal percentageAlcoholByVolume, bool PassesValidation)        
         {
 

@@ -16,9 +16,9 @@ public class BeerController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> Get([FromQuery] GetBeersRequest filter)
     {
-        return await _beerService.GetAllBeers();
+        return await _beerService.GetBeers(filter);
     }
 
     [HttpGet("{id}")]

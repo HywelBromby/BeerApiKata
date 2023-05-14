@@ -80,17 +80,44 @@ public class BeerFunctionalTests
         ((InMemAsyncRepository<Guid, BeerModel>)_beerRepository)._theStore.Add(beerModel1.Id, beerModel1);
         ((InMemAsyncRepository<Guid, BeerModel>)_beerRepository)._theStore.Add(beerModel2.Id, beerModel2);
 
-        var result = await _sut.Get() as ObjectResult;
+        var result = await _sut.Get(new GetBeersRequest { gtAlcoholByVolume = 0,ltAlcoholByVolume = 1}) as ObjectResult;
 
         Assert.AreEqual((int)HttpStatusCode.OK, result.StatusCode);
         Assert.AreEqual(beerModel1, ((List<BeerModel>)result.Value)[0]);
         Assert.AreEqual(beerModel2, ((List<BeerModel>)result.Value)[1]);
     }
 
+    [TestCase("0.0","1.0",3)]
+    [TestCase("0.2", "1", 2)]
+    [TestCase("0.0", "0.8", 2)]
+    [TestCase("0.2", "0.8", 1)]
+    [TestCase("0.2", "0.3", 0)]
+    public async Task Given_GetAllIsCalledWithFilters_Then_theRightNumberOfBeersShouldBeReturend(decimal gtAlcoholByVolume, decimal ltAlcoholByVolume, int expectedNumberOfBeers)
+    {
+        var beerModel1 = new BeerModel { Name = "Weak", PercentageAlcoholByVolume = 0.1M, Id = Guid.NewGuid() };
+        var beerModel2 = new BeerModel { Name = "Medium", PercentageAlcoholByVolume = 0.5M, Id = Guid.NewGuid() };
+        var beerModel3 = new BeerModel { Name = "Strong", PercentageAlcoholByVolume = 0.9M, Id = Guid.NewGuid() };
+
+
+        ((InMemAsyncRepository<Guid, BeerModel>)_beerRepository)._theStore.Add(beerModel1.Id, beerModel1);
+        ((InMemAsyncRepository<Guid, BeerModel>)_beerRepository)._theStore.Add(beerModel2.Id, beerModel2);
+        ((InMemAsyncRepository<Guid, BeerModel>)_beerRepository)._theStore.Add(beerModel3.Id, beerModel3);
+
+        var filter = new GetBeersRequest { 
+            ltAlcoholByVolume = ltAlcoholByVolume,
+            gtAlcoholByVolume = gtAlcoholByVolume
+        };
+
+        var result = await _sut.Get(filter) as ObjectResult;
+
+        Assert.AreEqual((int)HttpStatusCode.OK, result.StatusCode);
+        Assert.AreEqual(expectedNumberOfBeers, ((List<BeerModel>)result.Value).Count);        
+    }
+
     #endregion Get Test
 
     #region Post Tests
-    
+
     [Test]
     public async Task Given_TheRepositoryIsEmpty_When_AValidItemIsAdded_Then_TheRepository_ShouldHaveAnItemInIt()
     {
@@ -100,14 +127,14 @@ public class BeerFunctionalTests
             PercentageAlcoholByVolume = 0.5M
         };
 
-        var result = await _sut.Get() as ObjectResult;
+        var result = await _sut.Get(new GetBeersRequest { gtAlcoholByVolume = 0, ltAlcoholByVolume = 1 }) as ObjectResult;
         Assert.AreEqual(0, ((List<BeerModel>)result.Value).Count);
 
         var postResult = await _sut.Post(itemToAdd) as ObjectResult;
 
         Assert.AreEqual((int)HttpStatusCode.OK, postResult.StatusCode);
 
-        result = await _sut.Get() as ObjectResult;
+        result = await _sut.Get(new GetBeersRequest { gtAlcoholByVolume = 0, ltAlcoholByVolume = 1 }) as ObjectResult;
         Assert.AreEqual(1, ((List<BeerModel>)result.Value).Count);
     }
 
@@ -120,14 +147,14 @@ public class BeerFunctionalTests
             PercentageAlcoholByVolume = 0.5M
         };
 
-        var result = await _sut.Get() as ObjectResult;
+        var result = await _sut.Get(new GetBeersRequest { gtAlcoholByVolume = 0, ltAlcoholByVolume = 1 }) as ObjectResult;
         Assert.AreEqual(0, ((List<BeerModel>)result.Value).Count);
 
         var postResult = await _sut.Post(itemToAdd) as ObjectResult;
 
         Assert.AreEqual((int)HttpStatusCode.OK, postResult.StatusCode);
 
-        result = await _sut.Get() as ObjectResult;
+        result = await _sut.Get(new GetBeersRequest { gtAlcoholByVolume = 0, ltAlcoholByVolume = 1 }) as ObjectResult;
         Assert.AreEqual(itemToAdd.Name, ((List<BeerModel>)result.Value)[0].Name);
         Assert.AreEqual(itemToAdd.PercentageAlcoholByVolume, ((List<BeerModel>)result.Value)[0].PercentageAlcoholByVolume);
     }
@@ -157,7 +184,7 @@ public class BeerFunctionalTests
         
         var postResult = await _sut.Post(itemToAdd)as ObjectResult;
         
-        var result = await _sut.Get() as ObjectResult;
+        var result = await _sut.Get(new GetBeersRequest { gtAlcoholByVolume = 0, ltAlcoholByVolume = 1 }) as ObjectResult;
         Assert.AreEqual(1, ((List<BeerModel>)result.Value).Count);
 
         var itemToUpdate = new UpdateABeerRequest
@@ -183,7 +210,7 @@ public class BeerFunctionalTests
     public async Task Given_TheItemDoesNotExistsInTheRepository_When_AnItemIsUpdated_Then_ItemNotFoundCodeShouldBeReturned()
     {     
         //ensure that the repo is empty
-        var result = await _sut.Get() as ObjectResult;
+        var result = await _sut.Get(new GetBeersRequest { gtAlcoholByVolume = 0, ltAlcoholByVolume = 1 }) as ObjectResult;
         Assert.AreEqual(0, ((List<BeerModel>)result.Value).Count);
 
 
@@ -211,9 +238,5 @@ public class BeerFunctionalTests
     }
 
     #endregion Post Tests
-
-
-
-    //todo: filter beers by querystring tests
-
+    
 }

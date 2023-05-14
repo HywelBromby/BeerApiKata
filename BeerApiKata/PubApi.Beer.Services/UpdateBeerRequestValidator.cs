@@ -9,7 +9,7 @@ public class UpdateBeerRequestValidator: AbstractValidator<UpdateABeerRequest>
     {
         RuleFor(i => i.Id).NotNull();
         RuleFor(i=>i.PercentageAlcoholByVolume).GreaterThanOrEqualTo(0);
-        RuleFor(i => i.PercentageAlcoholByVolume).LessThanOrEqualTo(1);
+        RuleFor(i => i.PercentageAlcoholByVolume).LessThanOrEqualTo(100);
 
         RuleFor(i => i.Name)
             .NotNull()

@@ -54,9 +54,18 @@ public class BeerService : IBeerService
         };        
     }
 
-    public async Task<ObjectResult> GetAllBeers()
+    public async Task<ObjectResult> GetBeers(GetBeersRequest filter)
     {
-        return new ObjectResult(await _repository.GetAll())
+        if (filter == null)
+        {
+            throw new ArgumentNullException(nameof(filter));
+        }
+
+        //not the most efficient, but assuming low over all numbers of Beers
+        var allBeers = await _repository.GetAll();
+        var filteredBeers = allBeers.Where(i=>i.PercentageAlcoholByVolume > filter.gtAlcoholByVolume && i.PercentageAlcoholByVolume < filter.ltAlcoholByVolume).ToList();
+
+        return new ObjectResult(filteredBeers)
         {
             StatusCode = (int) HttpStatusCode.OK
         };
@@ -118,5 +127,5 @@ public class BeerService : IBeerService
         {
             StatusCode = (int)HttpStatusCode.OK
         };
-    }
+    }   
 }
