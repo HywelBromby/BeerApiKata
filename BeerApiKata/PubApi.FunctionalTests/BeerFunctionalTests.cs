@@ -21,6 +21,7 @@ public class BeerFunctionalTests
     BeerController _sut; 
     private static IGenericRepository<Guid, BeerModel> _beerRepository;
     private Mock<IGenericValidator<AddABeerRequest>> _mockAddABeerValidator;
+    private Mock<IGenericValidator<UpdateABeerRequest>> _mockUpdateABeerValidator;
 
 
     [SetUp]
@@ -31,7 +32,10 @@ public class BeerFunctionalTests
         _mockAddABeerValidator = new Mock<IGenericValidator<AddABeerRequest>>();
         _mockAddABeerValidator.Setup(i => i.Validate(It.IsAny<AddABeerRequest>())).ReturnsAsync(new BeerApiKata.Infrastructure.Validation.Models.GenericValidationResult { IsValid = true });
 
-        _sut = new BeerController(new BeerService(_beerRepository, _mockAddABeerValidator.Object));
+        _mockUpdateABeerValidator = new Mock<IGenericValidator<UpdateABeerRequest>>();
+        _mockUpdateABeerValidator.Setup(i => i.Validate(It.IsAny<UpdateABeerRequest>())).ReturnsAsync(new BeerApiKata.Infrastructure.Validation.Models.GenericValidationResult { IsValid = true });
+
+        _sut = new BeerController(new BeerService(_beerRepository, _mockAddABeerValidator.Object, _mockUpdateABeerValidator.Object));
     }
 
     #endregion Setup
@@ -87,7 +91,7 @@ public class BeerFunctionalTests
     #region Post Tests
     
     [Test]
-    public async Task Given_TheRepositoryIsEmpty_When_AnItemIsAdded_Then_TheRepository_ShouldHaveAnItemInIt()
+    public async Task Given_TheRepositoryIsEmpty_When_AValidItemIsAdded_Then_TheRepository_ShouldHaveAnItemInIt()
     {
         var itemToAdd = new AddABeerRequest()
         {
@@ -107,7 +111,7 @@ public class BeerFunctionalTests
     }
 
     [Test]
-    public async Task Given_TheRepositoryIsEmpty_When_AnItemIsAdded_Then_TheRepository_ShouldHaveAnItemWiththeCorrectValuesInIt()
+    public async Task Given_TheRepositoryIsEmpty_When_AValidItemIsAdded_Then_TheRepository_ShouldHaveAnItemWiththeCorrectValuesInIt()
     {
         var itemToAdd = new AddABeerRequest()
         {
@@ -125,6 +129,16 @@ public class BeerFunctionalTests
         result = await _sut.Get() as ObjectResult;
         Assert.AreEqual(itemToAdd.Name, ((List<BeerModel>)result.Value)[0].Name);
         Assert.AreEqual(itemToAdd.PercentageAlcoholByVolume, ((List<BeerModel>)result.Value)[0].PercentageAlcoholByVolume);
+    }
+
+    [Test]
+    public async Task Given_AnInvalidItemIsAdded_Then_AValidationErrorShouldOccur()
+    {
+        _mockAddABeerValidator.Setup(i => i.Validate(It.IsAny<AddABeerRequest>())).ReturnsAsync(new BeerApiKata.Infrastructure.Validation.Models.GenericValidationResult { IsValid = false });
+
+        var postResult = await _sut.Post(new AddABeerRequest()) as ObjectResult;
+
+        Assert.AreEqual((int)HttpStatusCode.BadRequest, postResult.StatusCode);        
     }
 
     #endregion Post Tests
@@ -184,8 +198,21 @@ public class BeerFunctionalTests
         Assert.AreEqual((int)HttpStatusCode.NotFound, updateResult.StatusCode);
     }
 
-    //should 404 if not found
+
+    [Test]
+    public async Task Given_AnInvalidItemIsUpdated_Then_AValidationErrorShouldOccur()
+    {
+        _mockUpdateABeerValidator.Setup(i => i.Validate(It.IsAny<UpdateABeerRequest>())).ReturnsAsync(new BeerApiKata.Infrastructure.Validation.Models.GenericValidationResult { IsValid = false });
+        
+        var postResult = await _sut.Put(new UpdateABeerRequest()) as ObjectResult;
+
+        Assert.AreEqual((int)HttpStatusCode.BadRequest, postResult.StatusCode);
+    }
 
     #endregion Post Tests
+
+
+
+    //todo: filter beers by querystring tests
 
 }

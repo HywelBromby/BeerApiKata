@@ -11,11 +11,16 @@ public class BeerService : IBeerService
 {
     private readonly IGenericRepository<Guid, BeerModel> _repository;
     private readonly IGenericValidator<AddABeerRequest> _addABeerValidator;
+    private readonly IGenericValidator<UpdateABeerRequest> _updateABeerValidator;
 
-    public BeerService(IGenericRepository<Guid, BeerModel> repository, IGenericValidator<AddABeerRequest> addABeerValidator)
+    public BeerService(
+        IGenericRepository<Guid, BeerModel> repository, 
+        IGenericValidator<AddABeerRequest> addABeerValidator,
+        IGenericValidator<UpdateABeerRequest> updateABeerValidator)
     {
         _repository = repository;
         _addABeerValidator = addABeerValidator;
+       _updateABeerValidator = updateABeerValidator;
     }
 
     public async Task<ObjectResult> AddABeer(AddABeerRequest request)
@@ -75,8 +80,43 @@ public class BeerService : IBeerService
         };
     }
 
-    public Task<ObjectResult> UpdateABeer(UpdateABeerRequest request)
+    public async Task<ObjectResult> UpdateABeer(UpdateABeerRequest request)
     {
-        throw new NotImplementedException();
+        if (request == null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
+        var validationResult = await _updateABeerValidator.Validate(request);
+        if (!validationResult.IsValid)
+        {
+            return new ObjectResult(validationResult.ValidationErrorsAsJson)
+            {
+                StatusCode = (int)HttpStatusCode.BadRequest
+            };
+        }
+
+        var beerToUpdate = await _repository.Get(request.Id);
+
+        if (beerToUpdate == default(BeerModel))
+        {
+            return new ObjectResult(null)
+            {
+                StatusCode = (int)HttpStatusCode.NotFound
+            };
+        }
+
+        var beermodel = new BeerModel
+        {
+            Name = request.Name,
+            Id = request.Id,
+            PercentageAlcoholByVolume = request.PercentageAlcoholByVolume
+        };
+
+        await _repository.Update(request.Id, beermodel);
+        return new ObjectResult(null)
+        {
+            StatusCode = (int)HttpStatusCode.OK
+        };
     }
 }

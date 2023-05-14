@@ -40,16 +40,11 @@ static void WireUpDependancies(WebApplicationBuilder builder)
 {
     builder.Services.AddSingleton(typeof(IGenericRepository<,>), typeof(InMemAsyncRepository<,>));
     builder.Services.AddTransient<IBeerService, BeerService>();
-    
+   
     
     builder.Services.AddSingleton(typeof(IGenericValidator<>), typeof(GenericFluentValidator<>));
     builder.Services.AddTransient<AbstractValidator<AddABeerRequest> ,AddBeerRequestValidator>();
-
-
-
-
-
-
+    builder.Services.AddTransient<AbstractValidator<UpdateABeerRequest>, UpdateBeerRequestValidator>();
 }
 
 static void WireUpMiddleware(WebApplication app)
