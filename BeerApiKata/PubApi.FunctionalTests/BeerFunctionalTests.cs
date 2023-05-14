@@ -71,7 +71,7 @@ public class BeerFunctionalTests
     #region Get Tests
 
     [Test]
-    public async Task Given_GetAllBeersIsCalled_Then_All_BeersInTheRepositoryShouldBeReturend()
+    public async Task Given_GetAllIsCalled_Then_All_BeersInTheRepositoryShouldBeReturend()
     {
         var beerModel1 = new BeerModel { Name = "Test1", PercentageAlcoholByVolume = 0.1M, Id = Guid.NewGuid() };
         var beerModel2 = new BeerModel { Name = "Test2", PercentageAlcoholByVolume = 0.2M, Id = Guid.NewGuid() };

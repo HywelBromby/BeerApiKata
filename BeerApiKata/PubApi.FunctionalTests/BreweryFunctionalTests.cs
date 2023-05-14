@@ -71,7 +71,7 @@ public class BreweryFunctionalTests
     #region Get Tests
 
     [Test]
-    public async Task Given_GetAllBrewerysIsCalled_Then_All_BrewerysInTheRepositoryShouldBeReturend()
+    public async Task Given_GetAllIsCalled_Then_All_BrewerysInTheRepositoryShouldBeReturend()
     {
         var BreweryModel1 = new BreweryModel { Name = "Test1", Id = Guid.NewGuid() };
         var BreweryModel2 = new BreweryModel { Name = "Test2", Id = Guid.NewGuid() };
@@ -202,9 +202,5 @@ public class BreweryFunctionalTests
     }
 
     #endregion Post Tests
-
-
-
-    //todo: filter Brewerys by querystring tests
 
 }
