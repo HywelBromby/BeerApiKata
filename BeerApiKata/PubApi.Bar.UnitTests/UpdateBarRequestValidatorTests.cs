@@ -1,13 +1,13 @@
 using NUnit.Framework;
-using PubApi.Beer.Models;
-using PubApi.Beer.Services;
+using PubApi.Bar.Models;
+using PubApi.Bar.Services;
 using System;
 
-namespace PubApi.Beer.UnitTests
+namespace PubApi.Bar.UnitTests
 {
-    public class UpdateBeerRequestValidatorTests
+    public class UpdateBarRequestValidatorTests
     {
-        UpdateBeerRequestValidator _sut = new UpdateBeerRequestValidator();
+        UpdateBarRequestValidator _sut = new UpdateBarRequestValidator();
             
         private const string validName = "test";
         private const string validPercentageAlcoholByVolume = "0.5";
@@ -19,7 +19,7 @@ namespace PubApi.Beer.UnitTests
         [TestCase(validId, validName, -1,false)]
         public void Given_ValidationIsCalled_Then_ItShouldPassOrFailBasedOnValues(Guid id,string name,decimal percentageAlcoholByVolume,bool PassesValidation)        {
 
-            var request = new UpdateABeerRequest()
+            var request = new UpdateABarRequest()
             {
                 Id = id,
                 Name = name,

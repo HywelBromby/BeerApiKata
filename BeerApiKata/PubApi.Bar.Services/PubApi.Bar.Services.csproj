@@ -14,7 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BeerApiKata.Infrastructure.Repository.Interfaces\BeerApiKata.Infrastructure.Repository.Interfaces.csproj" />
     <ProjectReference Include="..\BeerApiKata.Infrastructure.Validation.Interfaces\BeerApiKata.Infrastructure.Validation.Interfaces.csproj" />
-    <ProjectReference Include="..\PubApi.Beer.Interfaces\PubApi.Beer.Interfaces.csproj" />
+    <ProjectReference Include="..\PubApi.Bar.Interfaces\PubApi.Bar.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>

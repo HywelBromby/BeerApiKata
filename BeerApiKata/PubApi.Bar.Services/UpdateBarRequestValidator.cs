@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
-using PubApi.Beer.Models;
+using PubApi.Bar.Models;
 
-namespace PubApi.Beer.Services;
+namespace PubApi.Bar.Services;
 
-public class UpdateBeerRequestValidator: AbstractValidator<UpdateABeerRequest> 
+public class UpdateBarRequestValidator: AbstractValidator<UpdateABarRequest> 
 {
-    public UpdateBeerRequestValidator()
+    public UpdateBarRequestValidator()
     {
         RuleFor(i => i.Id).NotNull();
         RuleFor(i=>i.PercentageAlcoholByVolume).GreaterThanOrEqualTo(0);

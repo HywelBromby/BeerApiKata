@@ -3,6 +3,9 @@ using BeerApiKata.Infrastructure.Repository.Interfaces;
 using BeerApiKata.Infrastructure.Validation.GenericFluentValidator;
 using BeerApiKata.Infrastructure.Validation.Interfaces;
 using FluentValidation;
+using PubApi.Bar.Interfaces;
+using PubApi.Bar.Models;
+using PubApi.Bar.Services;
 using PubApi.Beer.Interfaces;
 using PubApi.Beer.Models;
 using PubApi.Beer.Services;
@@ -51,6 +54,10 @@ static void WireUpDependancies(WebApplicationBuilder builder)
     builder.Services.AddTransient<IBreweryService, BreweryService>();
     builder.Services.AddTransient<AbstractValidator<AddABreweryRequest>, AddBreweryRequestValidator>();
     builder.Services.AddTransient<AbstractValidator<UpdateABreweryRequest>, UpdateBreweryRequestValidator>();
+
+    builder.Services.AddTransient<IBarService, BarService>();
+    builder.Services.AddTransient<AbstractValidator<AddABarRequest>, AddBarRequestValidator>();
+    builder.Services.AddTransient<AbstractValidator<UpdateABarRequest>, UpdateBarRequestValidator>();
 }
 
 static void WireUpMiddleware(WebApplication app)

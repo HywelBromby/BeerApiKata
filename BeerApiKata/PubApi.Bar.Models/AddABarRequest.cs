@@ -1,8 +1,7 @@
-﻿namespace PubApi.Beer.Models;
+﻿namespace PubApi.Bar.Models;
 
-public class UpdateABeerRequest
+public class AddABarRequest
 {
-    public Guid Id { get; set; }
     public string? Name { get; set; }
     public decimal PercentageAlcoholByVolume { get; set; }
 }

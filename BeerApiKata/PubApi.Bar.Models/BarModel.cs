@@ -1,6 +1,6 @@
-﻿namespace PubApi.Beer.Models;
+﻿namespace PubApi.Bar.Models;
 
-public class BeerModel
+public class BarModel
 {
     public Guid Id { get; set; }
     public string? Name { get; set; }

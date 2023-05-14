@@ -15,6 +15,8 @@
     <ProjectReference Include="..\BeerApiKata.Infrastructure.Repository.Interfaces\BeerApiKata.Infrastructure.Repository.Interfaces.csproj" />
     <ProjectReference Include="..\BeerApiKata.Infrastructure.Validation.GenericFluentValidator\BeerApiKata.Infrastructure.Validation.GenericFluentValidator.csproj" />
     <ProjectReference Include="..\BeerApiKata.Infrastructure.Validation.Interfaces\BeerApiKata.Infrastructure.Validation.Interfaces.csproj" />
+    <ProjectReference Include="..\PubApi.Bar.Interfaces\PubApi.Bar.Interfaces.csproj" />
+    <ProjectReference Include="..\PubApi.Bar.Services\PubApi.Bar.Services.csproj" />
     <ProjectReference Include="..\PubApi.Beer.Interfaces\PubApi.Beer.Interfaces.csproj" />
     <ProjectReference Include="..\PubApi.Beer.Services\PubApi.Beer.Services.csproj" />
     <ProjectReference Include="..\PubApi.Brewery.Interfaces\PubApi.Brewery.Interfaces.csproj" />
