@@ -12,3 +12,8 @@ Rather than go for a relational DB, or an event sourced system, I decided to use
 The majority of the testing is functional testing, in the abstracted version this would allow the whole implementation to be replaced and still be covered, the non abstracted one is a little more brittle. only the validators have any unit testing around them
 
 Exception handling is done in the middleware
+
+
+Alternativley here is one that ChatGPT created - it would not be hard to start with this and edit it...
+
+![ChatGPT Example](ChatGPTGenerated2.png)
